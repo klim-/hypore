@@ -15,6 +15,7 @@ package manager.
 
 Install this repository with `git clone https://github.com/klim-/hypore.git`
 
+
 ## Example usage
 To reproduce the results for the submission in
 [Applied Mathematics and Computer Science](https://www.amcs.uz.zgora.pl),
