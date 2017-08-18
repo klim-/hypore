@@ -606,6 +606,6 @@ def left(*args,**kwargs):
     return tuple(B_list)
 
 
-#~ sp.init_printing(use_latex='mathjax')
+sp.init_printing(use_latex='mathjax')
 #~ xx = gen_state(4,2,enum=0)
 #~ sp.pprint(xx.T)
