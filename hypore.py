@@ -606,6 +606,86 @@ def left(*args,**kwargs):
     return tuple(B_list)
 
 
+
+# degreestuff
+def sumdeg(*args):
+    coeff = list(args)
+    alpha = len(coeff)-1
+    m1,n1 = coeff[0].shape
+    sdeg = sp.zeros(m1,n1)
+    for i in range(n1):
+        for j in range(m1):
+            for k in range(alpha+1):
+                if coeff[k][i,j]!=0:
+                    sdeg[i,j]=sd[i,j]+k
+    return sdeg
+
+def hideg(*args):
+    coeff = list(args)
+    alpha = len(coeff)-1
+    m1,n1 = coeff[0].shape
+    hdeg = sp.zeros(m1,n1)
+    for i in range(n1):
+        for j in range(m1):
+            for k in range(alpha+1):
+                if coeff[k][i,j]!=0:
+                    hdeg[i,j]=k
+    return hdeg
+
+def firstorder(*args):
+    """ Transforms a matrix A(s)=A0+A1*s+A2*s**2+...
+        to a Lie-Backlund equivalent matrix B(s)=B0+B1*s
+        (unimodularity/hyper-regularity preserved)
+    """
+    coeff = list(args)
+    alpha = len(coeff)-1
+    m1,n1 = coeff[0].shape
+    
+    m2 = n1*(alpha-1)+m1
+    n2 = n1*alpha
+    A0 = sp.zeros(m2,n2)
+    A1 = sp.zeros(m2,n2)
+
+    for i in range(m2):
+        for j in range(n2):
+            if i<(alpha-1)*n1:
+                if i==j: 
+                    A1[i,j] = 1
+                elif i==j-n1:
+                    A0[i,j] = -1
+            elif j>=(alpha-1)*n1:
+                A1[i,j] = coeff[-1][i%n1,j%m1]
+                A0[i,j] = coeff[-2][i%n1,j%m1]
+            else:
+                A0[i,j] = coeff[int(j/n1)][i-n1*(alpha-1),j%m1]
+    return A0,A1
+
+
+# efficiency test:
+def timeprocess():
+    start = timer()
+    is_unimodular(B0,B1)
+    end = timer()
+    print(end-start)
+
 sp.init_printing(use_latex='mathjax')
 #~ xx = gen_state(4,2,enum=0)
 #~ sp.pprint(xx.T)
+
+gen_state(2,3)
+A0 = sp.Matrix([
+    [1,xdot1],
+    [x2,x1*x2]])
+A1 = sp.Matrix([
+    [1,x1],
+    [x2,0]])
+A2 = sp.Matrix([
+    [1,0],
+    [0,0]])
+
+B0 = sp.Matrix([
+    [1,xdot1]])
+B1 = sp.Matrix([
+    [1,x1]])
+B2 = sp.Matrix([
+    [1,0]])
