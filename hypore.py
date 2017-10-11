@@ -671,21 +671,3 @@ def timeprocess():
 sp.init_printing(use_latex='mathjax')
 #~ xx = gen_state(4,2,enum=0)
 #~ sp.pprint(xx.T)
-
-gen_state(2,3)
-A0 = sp.Matrix([
-    [1,xdot1],
-    [x2,x1*x2]])
-A1 = sp.Matrix([
-    [1,x1],
-    [x2,0]])
-A2 = sp.Matrix([
-    [1,0],
-    [0,0]])
-
-B0 = sp.Matrix([
-    [1,xdot1]])
-B1 = sp.Matrix([
-    [1,x1]])
-B2 = sp.Matrix([
-    [1,0]])
